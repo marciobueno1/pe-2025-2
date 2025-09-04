@@ -3,14 +3,26 @@
 #define TAM 7
 
 void preencherVetorDigitacao(int vetor[], int tam);
+void preencherVetorImpares(int vetor[], int tam);
 double calcularMediaVetor(int vetor[], int tam);
 void imprimirValoresAcimaValor(int vetor[], int tam, double valor);
 int buscaSequencial(int vetor[], int tam, int x);
 void realizarDiversasBuscas(int vetor[], int tam);
+int estaOrdenado(int vetor[], int tam);
+void imprimirVetor(int vetor[], int tam);
+void imprimirVetorVersao2(int vetor[], int tam);
 
 int main() {
   int numeros[TAM];
-  preencherVetorDigitacao(numeros, TAM);
+  preencherVetorImpares(numeros, TAM);
+  // preencherVetorDigitacao(numeros, TAM);
+  printf("vetor = ");
+  imprimirVetorVersao2(numeros, TAM);
+  if (estaOrdenado(numeros, TAM)) {
+    printf("Vetor está ordenado!\n");
+  } else {
+    printf("Vetor não está ordenado!\n");
+  }
   double media = calcularMediaVetor(numeros, TAM);
   printf("A média dos números digitados é %.2f\n", media);
   printf("\nImpressão de todos os números acima da média\n");
@@ -23,6 +35,13 @@ void preencherVetorDigitacao(int vetor[], int tam) {
   for (int i = 0; i < tam; i += 1) {
     printf("Digite o %dº número inteiro: ", i + 1);
     scanf("%d", &vetor[i]);
+  }
+}
+
+// preenche vetor com números ímpares a partir do 11
+void preencherVetorImpares(int vetor[], int tam) {
+  for (int i = 0; i < tam; i += 1) {
+    vetor[i] = 2 * i + 11;
   }
 }
 
@@ -65,4 +84,50 @@ void realizarDiversasBuscas(int vetor[], int tam) {
     printf("Deseja fazer uma nova busca (0/1)? ");
     scanf("%d", &opcao);
   } while (opcao == 1);
+}
+
+int estaOrdenadoCrescente(int vetor[], int tam) {
+  for (int i = 1; i < tam; i += 1) {
+    if (vetor[i] < vetor[i - 1]) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int estaOrdenadoDecrescente(int vetor[], int tam) {
+  for (int i = 1; i < tam; i += 1) {
+    if (vetor[i] > vetor[i - 1]) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int estaOrdenado(int vetor[], int tam) {
+  return estaOrdenadoCrescente(vetor, tam) ||
+         estaOrdenadoDecrescente(vetor, tam);
+}
+
+void imprimirVetor(int vetor[], int tam) {
+  printf("{ ");
+  for (int i = 0; i < tam; i += 1) {
+    if (i != tam - 1) {
+      printf("%d, ", vetor[i]);
+    } else {
+      printf("%d ", vetor[i]);
+    }
+  }
+  printf("}\n");
+}
+
+void imprimirVetorVersao2(int vetor[], int tam) {
+  printf("{");
+  if (tam > 0) {
+    printf(" %d", vetor[0]);
+  }
+  for (int i = 1; i < tam; i += 1) {
+    printf(", %d", vetor[i]);
+  }
+  printf(" }\n");
 }
