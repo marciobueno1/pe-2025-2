@@ -12,6 +12,7 @@ struct Pessoa {
 void lerStr(char str[], int tam);
 void imprimirPesssoa(struct Pessoa p);
 void preencherPessoa(struct Pessoa *p);
+void preencherPessoa2(struct Pessoa *p); // utilizando sintaxe de 'seta' (->)
 double calcularIMC(struct Pessoa p);
 
 int main() {
@@ -43,6 +44,15 @@ void preencherPessoa(struct Pessoa *p) {
   scanf("%lf", &(*p).peso);
   printf("Digite a sua altura: ");
   scanf("%lf", &(*p).altura);
+}
+
+void preencherPessoa2(struct Pessoa *p) {
+  printf("Digite o seu nome: ");
+  lerStr(p->nome, TAM_NOME);
+  printf("Digite o seu peso: ");
+  scanf("%lf", &p->peso);
+  printf("Digite a sua altura: ");
+  scanf("%lf", &p->altura);
 }
 
 double calcularIMC(struct Pessoa p) {
