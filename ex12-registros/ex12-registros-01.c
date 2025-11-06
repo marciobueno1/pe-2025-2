@@ -112,14 +112,23 @@ void buscarValores(struct Ponto v[], int tam) {
   } while (opcao == 's');
 }
 
+int pontoCmp(struct Ponto p1, struct Ponto p2) {
+  int result = p1.x - p2.x;
+  if (result == 0) {
+    result = p1.y - p2.y;
+  }
+  return result;
+}
+
 void insertionSort(struct Ponto v[], int tam) {
-  // for (int i = 1; i <= tam - 1; i += 1) {
-  //   int chave = v[i];
-  //   int j = i;
-  //   while (j > 0 && chave < v[j - 1]) {
-  //     v[j] = v[j - 1];
-  //     j = j - 1;
-  //   }
-  //   v[j] = chave;
-  // }
+  for (int i = 1; i <= tam - 1; i += 1) {
+    struct Ponto chave = v[i];
+    int j = i;
+    // while (j > 0 && (chave.x < v[j - 1].x || (chave.x == v[j - 1].x && chave.y < v[j - 1].y))) {
+    while (j > 0 && pontoCmp(chave, v[j - 1]) < 0) {
+      v[j] = v[j - 1];
+      j = j - 1;
+    }
+    v[j] = chave;
+  }
 }
