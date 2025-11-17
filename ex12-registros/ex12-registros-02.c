@@ -20,13 +20,14 @@ void insertionSortPorNome(struct Pessoa v[], int tam);
 void insertionSortPorAltura(struct Pessoa v[], int tam);
 void insertionSortPorPesoDecrescente(struct Pessoa v[], int tam);
 void insertionSortPorIMC(struct Pessoa v[], int tam);
+void selectionSortPorNome(struct Pessoa v[], int tam);
 
 int main() {
   struct Pessoa pessoas[TAM];
   preencherVetorPessoas(pessoas, TAM);
   imprimirVetorPessoas(pessoas, TAM);
   printf("\nOrdenação por Nome\n");
-  insertionSortPorNome(pessoas, TAM);
+  selectionSortPorNome(pessoas, TAM);
   imprimirVetorPessoas(pessoas, TAM);
   printf("\nOrdenação por Altura\n");
   insertionSortPorAltura(pessoas, TAM);
@@ -130,5 +131,20 @@ void insertionSortPorIMC(struct Pessoa v[], int tam) {
       j = j - 1;
     }
     v[j] = chave;
+  }
+}
+
+void selectionSortPorNome(struct Pessoa v[], int tam) {
+  struct Pessoa aux;
+  for (int i = 0; i < tam - 1; i += 1) {
+    int posMenor = i;
+    for (int j = i + 1; j < tam; j += 1) {
+      if (strcmp(v[j].nome, v[posMenor].nome) < 0) {
+        posMenor = j;
+      }
+    }
+    aux = v[i];
+    v[i] = v[posMenor];
+    v[posMenor] = aux;
   }
 }
