@@ -21,8 +21,10 @@ void insertionSortPorAltura(struct Pessoa v[], int tam);
 void insertionSortPorPesoDecrescente(struct Pessoa v[], int tam);
 void insertionSortPorIMC(struct Pessoa v[], int tam);
 void selectionSortPorNome(struct Pessoa v[], int tam);
+void bubbleSortPorPeso(struct Pessoa v[], int tam);
 
-int main() {
+int main()
+{
   struct Pessoa pessoas[TAM];
   preencherVetorPessoas(pessoas, TAM);
   imprimirVetorPessoas(pessoas, TAM);
@@ -37,6 +39,9 @@ int main() {
   imprimirVetorPessoas(pessoas, TAM);
   printf("\nOrdenação por IMC\n");
   insertionSortPorIMC(pessoas, TAM);
+  imprimirVetorPessoas(pessoas, TAM);
+  printf("\nOrdenação por Peso (crescente)\n");
+  bubbleSortPorPeso(pessoas, TAM);
   imprimirVetorPessoas(pessoas, TAM);
   return 0;
 }
@@ -146,5 +151,23 @@ void selectionSortPorNome(struct Pessoa v[], int tam) {
     aux = v[i];
     v[i] = v[posMenor];
     v[posMenor] = aux;
+  }
+}
+
+void bubbleSortPorPeso(struct Pessoa v[], int tam) {
+  int trocou = 1, fim = tam - 1, pos;
+  struct Pessoa aux;
+  while (trocou) {
+    trocou = 0;
+    for (int i = 0; i < fim; i += 1) {
+      if (v[i].peso > v[i + 1].peso) {
+        aux = v[i];
+        v[i] = v[i + 1];
+        v[i + 1] = aux;
+        trocou = 1;
+        pos = i; // armazenar a posição que ocorreu a última troca
+      }
+    }
+    fim = pos;
   }
 }
