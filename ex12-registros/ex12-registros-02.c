@@ -22,9 +22,9 @@ void insertionSortPorPesoDecrescente(struct Pessoa v[], int tam);
 void insertionSortPorIMC(struct Pessoa v[], int tam);
 void selectionSortPorNome(struct Pessoa v[], int tam);
 void bubbleSortPorPeso(struct Pessoa v[], int tam);
+void bubbleSortPorPesoENome(struct Pessoa v[], int tam);
 
-int main()
-{
+int main() {
   struct Pessoa pessoas[TAM];
   preencherVetorPessoas(pessoas, TAM);
   imprimirVetorPessoas(pessoas, TAM);
@@ -42,6 +42,9 @@ int main()
   imprimirVetorPessoas(pessoas, TAM);
   printf("\nOrdenação por Peso (crescente)\n");
   bubbleSortPorPeso(pessoas, TAM);
+  imprimirVetorPessoas(pessoas, TAM);
+  printf("\nOrdenação por Peso e Nome (crescente)\n");
+  bubbleSortPorPesoENome(pessoas, TAM);
   imprimirVetorPessoas(pessoas, TAM);
   return 0;
 }
@@ -161,6 +164,26 @@ void bubbleSortPorPeso(struct Pessoa v[], int tam) {
     trocou = 0;
     for (int i = 0; i < fim; i += 1) {
       if (v[i].peso > v[i + 1].peso) {
+        aux = v[i];
+        v[i] = v[i + 1];
+        v[i + 1] = aux;
+        trocou = 1;
+        pos = i; // armazenar a posição que ocorreu a última troca
+      }
+    }
+    fim = pos;
+  }
+}
+
+void bubbleSortPorPesoENome(struct Pessoa v[], int tam) {
+  int trocou = 1, fim = tam - 1, pos;
+  struct Pessoa aux;
+  while (trocou) {
+    trocou = 0;
+    for (int i = 0; i < fim; i += 1) {
+      if (v[i].peso > v[i + 1].peso ||
+          (v[i].peso == v[i + 1].peso && strcmp(v[i].nome, v[i + 1].nome) > 0))
+      {
         aux = v[i];
         v[i] = v[i + 1];
         v[i + 1] = aux;
